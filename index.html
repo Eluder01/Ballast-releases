@@ -173,9 +173,9 @@ footer a{color:var(--muted)}
       Download free for Windows</a>
     <a class="btn ghost" href="#accuracy">See how accurate it is</a>
   </div>
-  <p class="fine"><span class="dlsize">~180 MB</span> · No credit card · Your portfolios never leave your PC</p>
-  <div class="shot"><div class="bar"><i></i><i></i><i></i><span>Ballast — results</span></div>
-    <img src="assets/results_view.webp" alt="Ballast results: statistics table comparing glidepath strategies" width="1600" height="907"></div>
+  <p class="fine"><span class="dlsize">Windows installer</span> · No credit card · Your portfolios never leave your PC</p>
+  <div class="shot"><div class="bar"><i></i><i></i><i></i><span>Ballast</span></div>
+    <img src="assets/app_results.webp" alt="Ballast backtest results: statistics and performance chart" width="1600" height="1000"></div>
 </div></header>
 
 <div class="wrap"><div class="stats">
@@ -198,7 +198,7 @@ footer a{color:var(--muted)}
     <div class="card"><div class="ic">📈</div><h3>Full-history mode</h3><p>Every portfolio runs from its own earliest data, with each start date marked on one chart, so a 1985 strategy isn't cut short by a 2011 stock.</p></div>
     <div class="card"><div class="ic">🐣</div><h3>IPO-era filter</h3><p>Leaves out each stock's unstable first years after listing, both the hype gains and the early crashes, so results reflect established companies.</p></div>
     <div class="card"><div class="ic">🔮</div><h3>Future simulation</h3><p>Thousands of Monte Carlo futures built from your strategy's own history: median, bad-case and good-case outcomes, the chance of reaching your goal, and worst drawdowns.</p></div>
-    <div class="card"><div class="ic">💬</div><h3>Private AI portfolio builder</h3><p>Describe what you want ("80% in each of these, 20% 3x Nasdaq") and the built-in assistant creates the portfolios. It runs on your own PC, free.</p></div>
+    <div class="card"><div class="ic">💬</div><h3>Private AI portfolio builder</h3><p>Describe what you want ("80% in each of these, 20% 3x Nasdaq") and the built-in assistant creates the portfolios. Runs privately on your PC with the free Ollama, or with your own Gemini key.</p></div>
     <div class="card"><div class="ic">📚</div><h3>Saved results library</h3><p>Every backtest is saved automatically, so you can search, compare, chart and export past results without re-running anything.</p></div>
   </div>
 
@@ -206,21 +206,21 @@ footer a{color:var(--muted)}
     <div class="txt"><div class="eyebrow">Full history</div><h3>Every strategy from its first day of data</h3>
       <p>Compare portfolios that started at different times on one chart, on a log scale, with the starting point of each one marked.</p>
       <ul class="check"><li>Drawdowns, rolling returns, yearly returns and events</li><li>Correlations and beta vs the market</li><li>Sort by CAGR, Sharpe, Sortino, Calmar or max drawdown</li></ul></div>
-    <div class="img"><img src="assets/full_history.webp" alt="Full-history chart with start-date marker" loading="lazy" width="1600" height="755"></div>
+    <div class="img"><img src="assets/app_full.webp" alt="Full-history view with every series from its first day" loading="lazy" width="1600" height="1000"></div>
   </div>
   <div class="row rev">
     <div class="txt"><div class="eyebrow">Forecasting</div><h3>See the range of futures, not one guess</h3>
       <p>The future simulation replays random 12-month stretches of your strategy's real history thousands of times, so
         crashes and recoveries show up about as often as they really did.</p>
       <ul class="check"><li>Bad-case, median and good-case outcomes</li><li>Monthly contributions, inflation and a return haircut</li><li>Probability of hitting your goal</li></ul></div>
-    <div class="img"><img src="assets/forecast.webp" alt="Monte Carlo forecast fan chart" loading="lazy" width="1400" height="929"></div>
+    <div class="img"><img src="assets/app_forecast.webp" alt="Forecast fan chart with outcome table" loading="lazy" width="1600" height="1000"></div>
   </div>
   <div class="row">
     <div class="txt"><div class="eyebrow">Build fast</div><h3>Portfolio cards you can drag, duplicate and toggle</h3>
       <p>Label each portfolio Type A or Type B, switch fund costs and total return on or off per portfolio, and drag cards
         to reorder them. You can also describe what you want and let the AI assistant build the cards.</p>
       <ul class="check"><li>Any Yahoo Finance ticker, plus leveraged and simulated legs</li><li>Yearly to daily rebalancing</li><li>10 colour themes</li></ul></div>
-    <div class="img"><img src="assets/cards.webp" alt="Portfolio cards" loading="lazy" width="1600" height="846"></div>
+    <div class="img"><img src="assets/app_portfolios.webp" alt="Portfolio cards" loading="lazy" width="1600" height="1000"></div>
   </div>
 </div></section>
 
@@ -304,7 +304,7 @@ footer a{color:var(--muted)}
     <details><summary>How accurate are the backtests?</summary><p>Against the real TQQQ and QLD over their full histories, Ballast's model is within about 0.5% and 0.25% a year, with a monthly correlation above 0.999, and slightly on the cautious side. See the <a href="#accuracy">accuracy section</a>.</p></details>
     <details><summary>Does it work on Mac or Linux?</summary><p>Not yet. Ballast currently supports Windows 10 and 11 (64-bit).</p></details>
     <details><summary>Do I need a powerful PC?</summary><p>Any modern Windows PC runs backtests fine. The optional AI assistant runs best with an NVIDIA graphics card (about 8 GB of video memory), and Ballast works fully without it.</p></details>
-    <details><summary>Windows says "Windows protected your PC". Is it safe?</summary><p>That warning appears for new apps that aren't code-signed yet. Click <b>More info → Run anyway</b>. Ballast installs into your own user folder and needs no administrator rights.</p></details>
+    <details><summary>Windows says "Windows protected your PC". Is it safe?</summary><p>Windows shows that for new apps that aren't code-signed yet. Click <b>More info → Run anyway</b>. The installer puts Ballast in your own user folder, needs no administrator rights, and adds a normal uninstaller under Settings → Apps.</p></details>
   </div>
 
   <div class="final"><h2>Find out before the market does.</h2>
@@ -328,7 +328,7 @@ footer a{color:var(--muted)}
 <script>
 // point every download button at the newest installer
 fetch("https://api.github.com/repos/Eluder01/Ballast-releases/releases/latest").then(r => r.json()).then(rel => {
-  const a = (rel.assets || []).find(x => /^Ballast-Setup-.*\.zip$/.test(x.name));
+  const a = (rel.assets || []).find(x => /^Ballast-Setup-.*\.exe$/.test(x.name));
   if (!a) return;
   document.querySelectorAll("a.dl").forEach(el => el.href = a.browser_download_url);
   document.querySelectorAll(".dlver").forEach(el => el.textContent = (rel.tag_name || "").replace(/^v/, "v"));
