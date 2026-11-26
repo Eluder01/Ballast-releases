@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ballast — Stress-test your portfolio against 40 years of booms and busts</title>
+<meta name="description" content="Ballast is a Windows backtester for leveraged and defensive portfolios. Switch between risk-on and safe-haven mixes through recessions, include real taxes and fund costs, and see how it would have played out.">
+<meta property="og:title" content="Ballast — portfolio backtester & glidepath lab">
+<meta property="og:description" content="Stress-test leveraged and defensive portfolios against decades of real market history. Free for Windows.">
+<meta property="og:image" content="assets/results_view.webp">
+<link rel="icon" href="assets/favicon.png">
+<style>
+:root{
+  --bg:#060a14; --bg2:#0b1220; --panel:rgba(15,23,42,.72); --line:rgba(148,163,184,.16); --text:#e2e8f0; --muted:#94a3b8;
+  --dim:#64748b; --blue:#60a5fa; --violet:#a78bfa; --green:#34d399; --amber:#fbbf24; --red:#f87171;
+  --grad:linear-gradient(90deg,#60a5fa,#a78bfa 50%,#34d399); --btn:linear-gradient(90deg,#2563eb,#7c3aed);
+  --r:16px; --max:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",Inter,system-ui,-apple-system,sans-serif;color:var(--text);line-height:1.6;
+  background:radial-gradient(1100px 650px at 10% -10%,rgba(59,130,246,.22),transparent 60%),
+             radial-gradient(900px 560px at 100% 0%,rgba(124,58,237,.18),transparent 60%),
+             radial-gradient(1000px 700px at 50% 110%,rgba(16,185,129,.10),transparent 60%),var(--bg);
+  background-attachment:fixed;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(6,10,20,.72);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--text)}
+.logo img{width:30px;height:30px;border-radius:8px}
+nav .links{display:flex;gap:22px;margin-left:auto}
+nav .links a{color:var(--muted);font-size:.95rem}
+nav .links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:12px;font-weight:650;
+  background:var(--btn);color:#fff;box-shadow:0 10px 30px rgba(37,99,235,.35);transition:transform .15s,filter .15s;border:0;cursor:pointer}
+.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn.ghost{background:rgba(30,41,59,.6);box-shadow:none;border:1px solid var(--line);color:var(--text)}
+.btn.sm{padding:9px 16px;font-size:.92rem}
+.btn svg{width:18px;height:18px}
+
+/* hero */
+.hero{padding:84px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(15,23,42,.6);color:var(--muted);font-size:.88rem;margin-bottom:22px}
+.pill b{color:var(--green);font-weight:650}
+h1{font-size:clamp(2.3rem,5.4vw,4.1rem);line-height:1.07;letter-spacing:-.025em;font-weight:800;max-width:930px;margin:0 auto}
+.lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:760px;margin:22px auto 32px}
+.cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.fine{color:var(--dim);font-size:.88rem;margin-top:16px}
+.shot{margin:56px auto 0;border-radius:18px;border:1px solid rgba(148,163,184,.22);overflow:hidden;
+  box-shadow:0 40px 120px rgba(37,99,235,.25),0 10px 40px rgba(0,0,0,.6);background:var(--bg2);position:relative}
+.shot .bar{height:34px;display:flex;align-items:center;gap:7px;padding:0 14px;background:rgba(15,23,42,.95);border-bottom:1px solid var(--line)}
+.shot .bar i{width:11px;height:11px;border-radius:50%;background:#334155}
+.shot .bar span{margin-left:10px;color:var(--dim);font-size:.8rem}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:64px 0 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;text-align:center;backdrop-filter:blur(10px)}
+.stat .n{font-size:2rem;font-weight:800;letter-spacing:-.02em}
+.stat .l{color:var(--muted);font-size:.9rem;margin-top:4px}
+
+/* sections */
+section{padding:96px 0 0}
+.eyebrow{color:var(--blue);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
+h2{font-size:clamp(1.8rem,3.4vw,2.7rem);line-height:1.15;letter-spacing:-.02em;margin:10px 0 14px;font-weight:800}
+.sub{color:var(--muted);font-size:1.1rem;max-width:720px}
+.center{text-align:center}.center .sub{margin:0 auto}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px;backdrop-filter:blur(10px);
+  transition:border-color .2s,transform .2s}
+.card:hover{border-color:rgba(96,165,250,.45);transform:translateY(-3px)}
+.card .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.35rem;margin-bottom:16px;
+  background:linear-gradient(135deg,rgba(37,99,235,.25),rgba(124,58,237,.25));border:1px solid rgba(148,163,184,.2)}
+.card h3{font-size:1.12rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.96rem}
+
+.row{display:grid;grid-template-columns:1fr 1.25fr;gap:48px;align-items:center;margin-top:72px}
+.row.rev{grid-template-columns:1.25fr 1fr}
+.row.rev .txt{order:2}
+.row .img{border-radius:var(--r);overflow:hidden;border:1px solid rgba(148,163,184,.2);box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.row h3{font-size:1.6rem;letter-spacing:-.01em;margin-bottom:12px;line-height:1.2}
+.row p{color:var(--muted);margin-bottom:14px}
+ul.check{list-style:none;margin-top:6px}
+ul.check li{padding-left:28px;position:relative;margin:8px 0;color:var(--text)}
+ul.check li:before{content:"";position:absolute;left:0;top:7px;width:16px;height:16px;border-radius:50%;
+  background:rgba(52,211,153,.18) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M4 8.5l2.5 2.5L12 5.5' stroke='%2334d399' stroke-width='2' fill='none' stroke-linecap='round'/></svg>") center/12px no-repeat}
+
+/* accuracy */
+.acc{display:grid;grid-template-columns:1.35fr 1fr;gap:22px;margin-top:44px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px;backdrop-filter:blur(10px)}
+.panel h4{font-size:1.05rem;margin-bottom:4px}
+.panel .cap{color:var(--dim);font-size:.86rem;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:600;font-size:.85rem}
+td.good{color:var(--green);font-weight:650}
+.legend{display:flex;gap:18px;font-size:.85rem;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;counter-reset:s}
+.step{position:relative;padding-top:56px}
+.step:before{counter-increment:s;content:counter(s);position:absolute;top:0;left:26px;width:40px;height:40px;border-radius:12px;
+  display:grid;place-items:center;font-weight:800;background:var(--btn);box-shadow:0 8px 24px rgba(37,99,235,.35)}
+.step.card{padding-top:76px}
+.step.card:before{top:24px}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:880px;margin:44px auto 0}
+.plan{padding:32px}
+.plan .price{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;margin:8px 0 4px}
+.plan .price small{font-size:1rem;color:var(--muted);font-weight:500}
+.plan.hl{border-color:rgba(167,139,250,.5);box-shadow:0 0 0 1px rgba(167,139,250,.25),0 30px 80px rgba(124,58,237,.2)}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
+  background:rgba(52,211,153,.15);color:var(--green)}
+.tag.v{background:rgba(167,139,250,.15);color:var(--violet)}
+.plan .btn{width:100%;justify-content:center;margin-top:22px}
+
+/* faq */
+.faq{max-width:840px;margin:40px auto 0}
+details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;padding:0 22px}
+summary{cursor:pointer;padding:18px 0;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--muted);font-size:1.3rem;line-height:1}
+details[open] summary:after{content:"–"}
+details p{color:var(--muted);padding:0 0 18px}
+
+.final{margin:110px 0 0;padding:64px 32px;text-align:center;border-radius:24px;border:1px solid rgba(148,163,184,.2);
+  background:radial-gradient(600px 300px at 50% 0%,rgba(124,58,237,.25),transparent 70%),rgba(15,23,42,.7)}
+footer{margin-top:90px;border-top:1px solid var(--line);padding:36px 0 48px;color:var(--dim);font-size:.88rem}
+footer .wrap{display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between}
+footer a{color:var(--muted)}
+.disc{max-width:var(--max);margin:22px auto 0;padding:0 24px;color:var(--dim);font-size:.8rem;line-height:1.55}
+
+@media (max-width:900px){
+  nav .links{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid,.steps{grid-template-columns:1fr 1fr}
+  .row,.row.rev,.acc,.two,.plans{grid-template-columns:1fr}
+  .row.rev .txt{order:0}
+}
+@media (max-width:600px){.grid,.steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="#"><img src="assets/icon.png" alt="">Ballast</a>
+  <div class="links">
+    <a href="#features">Features</a><a href="#accuracy">Accuracy</a><a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+  </div>
+  <a class="btn sm dl" href="https://github.com/Eluder01/Ballast-releases/releases/latest">Download</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="pill"><b>●</b> Free early access · Windows 10 &amp; 11</div>
+  <h1>Know how your strategy survives a recession <span class="grad">before you live through one.</span></h1>
+  <p class="lead">Ballast backtests leveraged and defensive portfolios across 40 years of real market history.
+    Switch between a risk-on mix and a safe-haven mix through every crash, with real fund costs and real US taxes,
+    and see exactly how it would have played out.</p>
+  <div class="cta">
+    <a class="btn dl" href="https://github.com/Eluder01/Ballast-releases/releases/latest">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+      Download free for Windows</a>
+    <a class="btn ghost" href="#accuracy">See how accurate it is</a>
+  </div>
+  <p class="fine"><span class="dlsize">~180 MB</span> · No credit card · Your portfolios never leave your PC</p>
+  <div class="shot"><div class="bar"><i></i><i></i><i></i><span>Ballast — results</span></div>
+    <img src="assets/results_view.webp" alt="Ballast results: statistics table comparing glidepath strategies" width="1600" height="907"></div>
+</div></header>
+
+<div class="wrap"><div class="stats">
+  <div class="stat"><div class="n grad">0.5%</div><div class="l">yearly gap vs real TQQQ over 16.8 years</div></div>
+  <div class="stat"><div class="n grad">0.9998</div><div class="l">month-to-month match with the real fund</div></div>
+  <div class="stat"><div class="n grad">40 yrs</div><div class="l">of daily market data, back to 1985</div></div>
+  <div class="stat"><div class="n grad">100%</div><div class="l">local: your research stays on your PC</div></div>
+</div></div>
+
+<section id="features"><div class="wrap">
+  <div class="center"><div class="eyebrow">Features</div>
+    <h2>A full research lab for <span class="grad">risk-on / risk-off</span> investing</h2>
+    <p class="sub">Most backtesters test one portfolio at a time. Ballast tests the switch between two, which is the part
+      that decides whether a leveraged strategy survives a crash.</p></div>
+  <div class="grid">
+    <div class="card"><div class="ic">🔀</div><h3>Glidepath switching</h3><p>Pair a growth portfolio (Type A) with a defensive one (Type B) and move between them on your own schedule, such as the dates of past recessions, or gradually.</p></div>
+    <div class="card"><div class="ic">🧾</div><h3>Real US capital gains tax</h3><p>2026 federal brackets, short- vs long-term lots, NIIT, loss carryforward, FIFO or highest-cost-first, and an optional state rate. It's computed on every sale.</p></div>
+    <div class="card"><div class="ic">⚙️</div><h3>True cost of leverage</h3><p>Daily borrowing costs from historical interest rates, fund expense ratios (0.94% for 3x Nasdaq) and rebalancing friction, the reasons leveraged funds lag "3× the index".</p></div>
+    <div class="card"><div class="ic">🤖</div><h3>Variation shuffler</h3><p>Automatically tests every pairing of your portfolios across schedules, skipping what it has already run, with an out-of-sample check so a lucky fit doesn't fool you.</p></div>
+    <div class="card"><div class="ic">📈</div><h3>Full-history mode</h3><p>Every portfolio runs from its own earliest data, with each start date marked on one chart, so a 1985 strategy isn't cut short by a 2011 stock.</p></div>
+    <div class="card"><div class="ic">🐣</div><h3>IPO-era filter</h3><p>Leaves out each stock's unstable first years after listing, both the hype gains and the early crashes, so results reflect established companies.</p></div>
+    <div class="card"><div class="ic">🔮</div><h3>Future simulation</h3><p>Thousands of Monte Carlo futures built from your strategy's own history: median, bad-case and good-case outcomes, the chance of reaching your goal, and worst drawdowns.</p></div>
+    <div class="card"><div class="ic">💬</div><h3>Private AI portfolio builder</h3><p>Describe what you want ("80% in each of these, 20% 3x Nasdaq") and the built-in assistant creates the portfolios. It runs on your own PC, free.</p></div>
+    <div class="card"><div class="ic">📚</div><h3>Saved results library</h3><p>Every backtest is saved automatically, so you can search, compare, chart and export past results without re-running anything.</p></div>
+  </div>
+
+  <div class="row">
+    <div class="txt"><div class="eyebrow">Full history</div><h3>Every strategy from its first day of data</h3>
+      <p>Compare portfolios that started at different times on one chart, on a log scale, with the starting point of each one marked.</p>
+      <ul class="check"><li>Drawdowns, rolling returns, yearly returns and events</li><li>Correlations and beta vs the market</li><li>Sort by CAGR, Sharpe, Sortino, Calmar or max drawdown</li></ul></div>
+    <div class="img"><img src="assets/full_history.webp" alt="Full-history chart with start-date marker" loading="lazy" width="1600" height="755"></div>
+  </div>
+  <div class="row rev">
+    <div class="txt"><div class="eyebrow">Forecasting</div><h3>See the range of futures, not one guess</h3>
+      <p>The future simulation replays random 12-month stretches of your strategy's real history thousands of times, so
+        crashes and recoveries show up about as often as they really did.</p>
+      <ul class="check"><li>Bad-case, median and good-case outcomes</li><li>Monthly contributions, inflation and a return haircut</li><li>Probability of hitting your goal</li></ul></div>
+    <div class="img"><img src="assets/forecast.webp" alt="Monte Carlo forecast fan chart" loading="lazy" width="1400" height="929"></div>
+  </div>
+  <div class="row">
+    <div class="txt"><div class="eyebrow">Build fast</div><h3>Portfolio cards you can drag, duplicate and toggle</h3>
+      <p>Label each portfolio Type A or Type B, switch fund costs and total return on or off per portfolio, and drag cards
+        to reorder them. You can also describe what you want and let the AI assistant build the cards.</p>
+      <ul class="check"><li>Any Yahoo Finance ticker, plus leveraged and simulated legs</li><li>Yearly to daily rebalancing</li><li>10 colour themes</li></ul></div>
+    <div class="img"><img src="assets/cards.webp" alt="Portfolio cards" loading="lazy" width="1600" height="846"></div>
+  </div>
+</div></section>
+
+<section id="accuracy"><div class="wrap">
+  <div class="center"><div class="eyebrow">Accuracy</div>
+    <h2>Tested against the <span class="grad">real funds</span>, not a spreadsheet</h2>
+    <p class="sub">We ran Ballast's model of 3x and 2x Nasdaq-100 against the real ProShares funds over their entire
+      histories. The model lands within half a percent a year, and it errs on the <b>cautious</b> side.</p></div>
+  <div class="acc">
+    <div class="panel"><h4>Growth of $1: Ballast's 3x model vs real TQQQ</h4>
+      <div class="cap">Monthly, log scale, 2010 to 2026. Both lines include fund costs and dividends.</div>
+      <svg viewBox="0 0 760 330" width="100%" role="img" aria-label="Ballast model vs real TQQQ, growth of $1"><line x1="46" x2="750" y1="293.7" y2="293.7" stroke="rgba(148,163,184,.14)"/><text x="40" y="297.7" text-anchor="end" fill="#64748b" font-size="11">$1</text><line x1="46" x2="750" y1="187.6" y2="187.6" stroke="rgba(148,163,184,.14)"/><text x="40" y="191.6" text-anchor="end" fill="#64748b" font-size="11">$10</text><line x1="46" x2="750" y1="81.5" y2="81.5" stroke="rgba(148,163,184,.14)"/><text x="40" y="85.5" text-anchor="end" fill="#64748b" font-size="11">$100</text><text x="46.0" y="324" text-anchor="middle" fill="#64748b" font-size="11">2010</text><text x="168.6" y="324" text-anchor="middle" fill="#64748b" font-size="11">2013</text><text x="294.7" y="324" text-anchor="middle" fill="#64748b" font-size="11">2016</text><text x="420.8" y="324" text-anchor="middle" fill="#64748b" font-size="11">2019</text><text x="546.9" y="324" text-anchor="middle" fill="#64748b" font-size="11">2022</text><text x="672.9" y="324" text-anchor="middle" fill="#64748b" font-size="11">2025</text><polyline fill="none" stroke="#fbbf24" stroke-width="2.2" points="46.0,290.3 49.5,280.2 53.0,277.5 56.5,289.4 60.0,299.1 63.5,290.0 67.0,297.5 70.5,281.0 74.0,272.8 77.5,273.4 81.0,267.1 84.5,263.5 88.0,259.5 91.5,260.6 95.0,256.8 98.5,258.8 102.0,262.2 105.5,260.2 109.0,270.2 112.5,277.3 116.0,264.7 119.6,269.6 123.1,271.0 126.6,260.0 130.1,251.5 133.6,244.9 137.1,246.9 140.6,257.5 144.1,253.2 147.6,252.1 151.1,245.3 154.6,244.3 158.1,252.1 161.6,250.7 165.1,251.6 168.6,248.2 172.1,247.9 175.6,244.0 179.1,240.9 182.6,236.3 186.1,240.1 189.6,231.7 193.1,232.4 196.6,226.0 200.1,219.7 203.6,215.2 207.1,211.3 210.6,214.3 214.1,207.7 217.6,211.7 221.1,212.7 224.6,206.8 228.1,202.7 231.6,201.3 235.1,194.7 238.6,196.0 242.1,193.0 245.6,186.9 249.1,190.5 252.6,193.8 256.1,184.3 259.7,187.9 263.2,185.6 266.7,182.8 270.2,186.4 273.7,180.6 277.2,191.7 280.7,195.6 284.2,181.0 287.7,180.4 291.2,183.1 294.7,194.1 298.2,196.9 301.7,188.2 305.2,192.8 308.7,187.2 312.2,191.0 315.7,181.6 319.2,180.3 322.7,177.7 326.2,179.9 329.7,179.4 333.2,178.2 336.7,171.4 340.2,165.6 343.7,163.1 347.2,159.5 350.7,154.5 354.2,158.4 357.7,153.0 361.2,150.7 364.7,151.2 368.2,145.3 371.7,142.8 375.2,142.2 378.7,131.0 382.2,133.9 385.7,140.5 389.2,140.7 392.7,133.5 396.2,132.5 399.8,129.2 403.3,121.6 406.8,122.4 410.3,136.6 413.8,138.0 417.3,152.4 420.8,141.4 424.3,137.6 427.8,132.8 431.3,125.7 434.8,138.4 438.3,128.8 441.8,126.0 445.3,129.8 448.8,128.9 452.3,123.5 455.8,118.2 459.3,113.3 462.8,109.6 466.3,118.6 469.8,140.8 473.3,123.2 476.8,115.3 480.3,107.7 483.8,98.4 487.3,84.6 490.8,94.2 494.3,99.2 497.8,85.5 501.3,79.1 504.8,79.3 508.3,79.9 511.8,78.9 515.3,71.3 518.8,73.5 522.3,65.3 525.8,61.6 529.3,56.1 532.8,64.5 536.3,54.4 539.9,52.0 543.4,51.2 546.9,64.9 550.4,72.4 553.9,67.7 557.4,89.1 560.9,93.7 564.4,108.5 567.9,93.3 571.4,101.7 574.9,118.5 578.4,114.7 581.9,109.3 585.4,123.3 588.9,110.4 592.4,112.0 595.9,100.4 599.4,100.5 602.9,90.9 606.4,83.2 609.9,78.5 613.4,81.6 616.9,89.5 620.4,93.3 623.9,79.9 627.4,73.0 630.9,71.3 634.4,65.0 637.9,63.9 641.4,71.0 644.9,63.2 648.4,55.4 651.9,58.9 655.4,58.7 658.9,56.0 662.4,58.0 665.9,51.6 669.4,51.8 672.9,49.8 676.4,54.4 680.0,66.6 683.5,68.6 687.0,57.4 690.5,49.4 694.0,46.6 697.5,46.0 701.0,39.2 704.5,33.6 708.0,36.7 711.5,38.2 715.0,37.1 718.5,41.1 722.0,49.0 725.5,29.6 729.0,16.4 732.5,18.3 736.0,28.7 739.5,23.7 743.0,19.9 746.5,30.5 750.0,45.0"/><polyline fill="none" stroke="#60a5fa" stroke-width="2.2" stroke-dasharray="6 4" points="46.0,290.4 49.5,280.3 53.0,277.6 56.5,289.7 60.0,299.1 63.5,290.0 67.0,297.8 70.5,281.1 74.0,272.9 77.5,273.5 81.0,267.3 84.5,263.8 88.0,259.8 91.5,260.9 95.0,257.2 98.5,259.2 102.0,262.6 105.5,260.7 109.0,270.8 112.5,278.0 116.0,265.3 119.6,270.2 123.1,271.5 126.6,260.5 130.1,252.2 133.6,245.6 137.1,247.7 140.6,258.2 144.1,254.0 147.6,253.0 151.1,246.3 154.6,245.3 158.1,253.2 161.6,251.8 165.1,252.7 168.6,249.4 172.1,249.2 175.6,245.2 179.1,242.2 182.6,237.5 186.1,241.3 189.6,233.0 193.1,233.8 196.6,227.5 200.1,221.1 203.6,216.5 207.1,212.7 210.6,215.7 214.1,209.1 217.6,213.2 221.1,214.2 224.6,208.4 228.1,204.2 231.6,202.9 235.1,196.3 238.6,197.6 242.1,194.6 245.6,188.6 249.1,192.1 252.6,195.5 256.1,186.1 259.7,189.7 263.2,187.3 266.7,184.5 270.2,188.3 273.7,182.5 277.2,193.5 280.7,197.4 284.2,182.9 287.7,182.3 291.2,185.1 294.7,196.1 298.2,199.0 301.7,190.2 305.2,195.0 308.7,189.4 312.2,193.2 315.7,183.9 319.2,182.6 322.7,179.9 326.2,182.2 329.7,181.9 333.2,180.6 336.7,173.9 340.2,168.1 343.7,165.6 347.2,162.1 350.7,157.1 354.2,160.8 357.7,155.6 361.2,153.2 364.7,153.9 368.2,148.0 371.7,145.6 375.2,145.0 378.7,133.8 382.2,136.7 385.7,143.5 389.2,143.6 392.7,136.4 396.2,135.3 399.8,132.0 403.3,124.6 406.8,125.3 410.3,139.5 413.8,141.0 417.3,155.2 420.8,144.3 424.3,140.6 427.8,135.8 431.3,128.8 434.8,141.4 438.3,131.9 441.8,129.2 445.3,133.0 448.8,132.1 452.3,126.7 455.8,121.5 459.3,116.5 462.8,112.8 466.3,122.6 469.8,143.2 473.3,125.9 476.8,117.7 480.3,110.1 483.8,101.0 487.3,87.1 490.8,96.9 494.3,102.2 497.8,88.2 501.3,81.9 504.8,82.1 508.3,82.8 511.8,81.6 515.3,74.0 518.8,76.2 522.3,68.1 525.8,64.4 529.3,58.9 532.8,67.3 536.3,57.2 539.9,54.8 543.4,54.0 546.9,67.6 550.4,75.2 553.9,70.2 557.4,91.9 560.9,96.3 564.4,111.0 567.9,95.7 571.4,104.1 574.9,120.9 578.4,117.0 581.9,111.4 585.4,125.5 588.9,112.5 592.4,114.1 595.9,102.6 599.4,102.6 602.9,93.0 606.4,85.4 609.9,80.8 613.4,83.9 616.9,91.8 620.4,95.7 623.9,82.3 627.4,75.4 630.9,73.8 634.4,67.4 637.9,66.4 641.4,73.6 644.9,66.1 648.4,58.0 651.9,61.6 655.4,61.4 658.9,58.8 662.4,60.8 665.9,54.3 669.4,54.6 672.9,52.5 676.4,57.1 680.0,69.3 683.5,71.3 687.0,60.1 690.5,52.1 694.0,49.3 697.5,48.7 701.0,42.0 704.5,36.5 708.0,39.5 711.5,41.0 715.0,39.9 718.5,43.9 722.0,51.7 725.5,32.3 729.0,19.1 732.5,20.9 736.0,31.4 739.5,26.5 743.0,22.6 746.5,33.2 750.0,47.8"/></svg>
+      <div class="legend"><span><i style="background:#60a5fa"></i>Ballast model</span><span><i style="background:#fbbf24"></i>Real TQQQ</span></div>
+    </div>
+    <div class="panel"><h4>Measured results</h4><div class="cap">Full fund history, total return</div>
+      <table>
+        <tr><th></th><th>3x · TQQQ</th><th>2x · QLD</th></tr>
+        <tr><td>Years compared</td><td>16.8</td><td>20.4</td></tr>
+        <tr><td>Real fund, per year</td><td>37.93%</td><td>23.06%</td></tr>
+        <tr><td>Ballast model, per year</td><td>37.43%</td><td>22.83%</td></tr>
+        <tr><td>Difference</td><td class="good">-0.50%</td><td class="good">-0.24%</td></tr>
+        <tr><td>Monthly correlation</td><td class="good">0.9998</td><td class="good">0.9997</td></tr>
+        <tr><td>Typical yearly gap</td><td>0.9%</td><td>0.6%</td></tr>
+      </table>
+      <p class="cap" style="margin-top:14px">A slightly negative difference means Ballast's backtests come out a little <i>below</i>
+        what the real fund delivered, never flattering.</p>
+    </div>
+  </div>
+  <div class="two">
+    <div class="panel"><h4>What Ballast models</h4>
+      <ul class="check">
+        <li>Daily total returns with dividends reinvested</li>
+        <li>Leverage borrowing cost from historical Fed Funds rates</li>
+        <li>Fund expense ratios and swap spreads</li>
+        <li>Rebalancing and contributions on real trading days</li>
+        <li>US capital gains tax with real tax lots</li>
+        <li>Pre-launch history rebuilt from the underlying index</li>
+      </ul></div>
+    <div class="panel"><h4>What it can't do (we'll be upfront)</h4>
+      <ul class="check">
+        <li>Predict the future: backtests show the past, not what comes next</li>
+        <li>Before a fund existed, its history is simulated from its index</li>
+        <li>Market data comes from Yahoo Finance and can contain errors</li>
+        <li>Taxes are a federal estimate, not tax advice</li>
+        <li>Leveraged funds can fall 80–90% in a crash, and the backtests show it</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <div class="center"><div class="eyebrow">How it works</div><h2>From idea to stress test in minutes</h2></div>
+  <div class="steps">
+    <div class="step card"><h3>Build your portfolios</h3><p style="color:var(--muted)">Type tickers and weights, or ask the AI assistant. Mark each one as risk-on (A) or defensive (B).</p></div>
+    <div class="step card"><h3>Backtest across history</h3><p style="color:var(--muted)">Run every portfolio and glidepath at once through 1987, 2000, 2008, 2020 and 2022, with costs and taxes included.</p></div>
+    <div class="step card"><h3>Stress-test &amp; forecast</h3><p style="color:var(--muted)">Shuffle variations, check them out-of-sample, try different start years and simulate thousands of futures.</p></div>
+  </div>
+</div></section>
+
+<section id="pricing"><div class="wrap">
+  <div class="center"><div class="eyebrow">Pricing</div><h2>Every feature is free during early access</h2>
+    <p class="sub">Create a free account and use the whole lab. A Pro plan with advanced tools is coming later.</p></div>
+  <div class="plans">
+    <div class="card plan hl"><span class="tag">Available now</span><h3 style="margin-top:12px">Free · Early access</h3>
+      <div class="price">$0 <small>no card needed</small></div>
+      <ul class="check"><li>Every feature, while in early access</li><li>Unlimited portfolios and backtests</li><li>Local AI assistant</li><li>Automatic updates</li></ul>
+      <a class="btn dl" href="https://github.com/Eluder01/Ballast-releases/releases/latest">Download free</a></div>
+    <div class="card plan"><span class="tag v">Coming soon</span><h3 style="margin-top:12px">Pro</h3>
+      <div class="price">— <small>pricing to be announced</small></div>
+      <ul class="check"><li>Advanced research and optimisation tools</li><li>Priority feature requests</li><li>Supports ongoing development</li><li>Cancel anytime · 14-day refund on first payment</li></ul>
+      <a class="btn ghost" href="#faq">Learn more</a></div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="center"><div class="eyebrow">FAQ</div><h2>Questions</h2></div>
+  <div class="faq">
+    <details><summary>Is Ballast financial advice?</summary><p>No. Ballast is an educational research tool. It shows how rules would have performed on past data, which doesn't predict future results, and it never recommends what to buy. Talk to a licensed professional before investing.</p></details>
+    <details><summary>Does my data get uploaded anywhere?</summary><p>No. Your portfolios, results, settings and AI chats stay in your own Windows user folder. Online we store only what an account needs: your username, email and plan. Read the <a href="privacy.html">Privacy Policy</a>.</p></details>
+    <details><summary>Why do I need an account?</summary><p>It keeps out spam and bot sign-ups, lets you send feedback, and lets Pro work later. Sign-up takes a minute: Google sign-in, or email with a 6-digit code.</p></details>
+    <details><summary>Where does the market data come from?</summary><p>Daily prices come from Yahoo Finance and are downloaded directly by your PC. Before a fund launched, its history is rebuilt from its index, which is how Ballast reaches back to the 1980s for leveraged Nasdaq strategies.</p></details>
+    <details><summary>How accurate are the backtests?</summary><p>Against the real TQQQ and QLD over their full histories, Ballast's model is within about 0.5% and 0.25% a year, with a monthly correlation above 0.999, and slightly on the cautious side. See the <a href="#accuracy">accuracy section</a>.</p></details>
+    <details><summary>Does it work on Mac or Linux?</summary><p>Not yet. Ballast currently supports Windows 10 and 11 (64-bit).</p></details>
+    <details><summary>Do I need a powerful PC?</summary><p>Any modern Windows PC runs backtests fine. The optional AI assistant runs best with an NVIDIA graphics card (about 8 GB of video memory), and Ballast works fully without it.</p></details>
+    <details><summary>Windows says "Windows protected your PC". Is it safe?</summary><p>That warning appears for new apps that aren't code-signed yet. Click <b>More info → Run anyway</b>. Ballast installs into your own user folder and needs no administrator rights.</p></details>
+  </div>
+
+  <div class="final"><h2>Find out before the market does.</h2>
+    <p class="sub" style="margin:0 auto 28px">Free for Windows. Your research stays yours.</p>
+    <a class="btn dl" href="https://github.com/Eluder01/Ballast-releases/releases/latest">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+      Download Ballast <span class="dlver"></span></a></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div><a class="logo" href="#" style="font-size:1.05rem"><img src="assets/icon.png" alt="" style="width:24px;height:24px">Ballast</a></div>
+    <div style="display:flex;gap:22px;flex-wrap:wrap"><a href="terms.html">Terms of Use</a><a href="privacy.html">Privacy Policy</a>
+      <a href="https://github.com/Eluder01/Ballast-releases/releases">All releases</a></div>
+  </div>
+  <p class="disc">Ballast is an educational tool, not financial, investment or tax advice. All results are hypothetical and based on
+    historical or simulated data. Past performance does not guarantee future results. Leveraged funds are high-risk and can lose
+    most of their value. TQQQ and QLD are trademarks of ProShares, which is not affiliated with Ballast.</p>
+</footer>
+
+<script>
+// point every download button at the newest installer
+fetch("https://api.github.com/repos/Eluder01/Ballast-releases/releases/latest").then(r => r.json()).then(rel => {
+  const a = (rel.assets || []).find(x => /^Ballast-Setup-.*\.zip$/.test(x.name));
+  if (!a) return;
+  document.querySelectorAll("a.dl").forEach(el => el.href = a.browser_download_url);
+  document.querySelectorAll(".dlver").forEach(el => el.textContent = (rel.tag_name || "").replace(/^v/, "v"));
+  document.querySelectorAll(".dlsize").forEach(el => el.textContent = Math.round(a.size / 1e6) + " MB");
+}).catch(() => {});
+</script>
+</body>
+</html>
