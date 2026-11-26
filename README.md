@@ -19,4 +19,6 @@ Windows 10 or 11 (64-bit). The optional AI assistant runs locally with Ollama an
 
 ---
 
+[Terms of Use](TERMS.md) · [Privacy Policy](PRIVACY.md)
+
 *Ballast is an educational tool, not financial or tax advice. Past performance does not predict future results.*
