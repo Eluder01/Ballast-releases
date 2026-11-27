@@ -224,7 +224,7 @@ footer a{color:var(--muted)}
 </div></nav>
 
 <header class="hero"><div class="wrap">
-  <div class="pill"><b>●</b> New in 1.9: calmer, clearer charts · Free for Windows 10 &amp; 11</div>
+  <div class="pill"><b>●</b> New: a leaderboard that ranks your strategies six ways · Free for Windows 10 &amp; 11</div>
   <h1>Are you actually on track? <span class="grad">Find out in minutes.</span></h1>
   <p class="lead">Waypoint tracks what you really own, projects where it's heading, and lets you test any change before
     you make it: a bigger monthly deposit, a new fund, a different mix, or a whole strategy back to 1985.</p>
@@ -256,7 +256,7 @@ footer a{color:var(--muted)}
     <div class="txt"><div class="eyebrow pro">Goal planner · Pro</div><h3>“Will I reach $1 million in 20 years?”</h3>
       <p>Type your goal, your timeline and what you add each month. Waypoint tells you your chance of getting there from
         the holdings you actually own, and exactly how much more a month would make it likely.</p>
-      <ul class="check"><li>Your chance of success, in one number</li><li>“To make it 75% likely, add $X a month”</li><li>Rebalanced every January 1st, the way you'd really do it</li></ul>
+      <ul class="check"><li>Your chance of success, in one number</li><li>“To make it 75% likely, add $X a month”</li><li>Rebalanced every January 1st, the way you'd really do it</li><li>Optional buy-the-dips: extra buys when your holdings drop, with the boost measured on your own strategy's history</li></ul>
       <div class="inline-cta"><a class="btn pro" href="#pricing">Try Pro free for 7 days</a><a class="btn ghost dl" href="https://github.com/Eluder01/Ballast-releases/releases/latest">Try Waypoint free</a></div></div>
     <div class="imgbox" style="max-width:420px;justify-self:center"><img src="assets/card_goal.webp" alt="Goal planner showing the chance of reaching a goal" loading="lazy"></div>
   </div>
@@ -359,8 +359,23 @@ footer a{color:var(--muted)}
         brand-new idea. Run it back through 40 years of booms and crashes, then thousands of futures, with real fund costs and
         real US taxes.</p>
       <div class="realbadge">Real TQQQ, UPRO, QLD and SSO prices for every day they've existed</div>
-      <ul class="check"><li>Calm, readable charts: every line labeled at its end, recessions shaded, your best strategy up front</li><li>Growth, worst drops, rolling and yearly returns</li><li>Every rebalance, with the allocation over time</li><li>Dividends collected and taxes paid</li></ul></div>
+      <ul class="check"><li>Calm, readable charts: every line labeled at its end, recessions shaded, your best strategy up front</li><li>Growth, worst drops, rolling and yearly returns</li><li>Every rebalance, with the allocation over time</li><li>Dividends collected and taxes paid</li><li>Costs, taxes, dip buying and withdrawals set right on the page, behind one Options button</li></ul></div>
     <div class="imgbox"><img src="assets/app_backtest.webp" alt="Backtest results table and performance chart" loading="lazy"></div>
+  </div>
+  <div class="row rev">
+    <div class="txt"><div class="eyebrow">New · Leaderboard</div><h3>One winning number can hide a miserable ride</h3>
+      <p>Every strategy you backtest is added automatically. The leaderboard ranks them on six tests at once: growth over
+        the same period, a typical start date, a bad start date, worst drop, risk-adjusted return, and how deep and how long
+        you sat underwater. A strategy that wins one test but is miserable to hold drops down the list.</p>
+      <ul class="check"><li>The score is the average percentile across all six tests</li><li>A “Lived through” column shows which crashes (2000, 2008, 2022) each strategy's history covers</li><li>Rank over 3, 5 or 10-year windows</li></ul></div>
+    <div class="imgbox"><img src="assets/app_leaderboard.webp" alt="Leaderboard ranking backtested strategies across six tests, with a Lived through column for the 2000, 2008 and 2022 crashes" loading="lazy"></div>
+  </div>
+  <div class="row">
+    <div class="txt"><div class="eyebrow">New · Start dates</div><h3>Your result depends on when you start</h3>
+      <p>Pick a horizon of 3, 5, 10, 15 or 20 years and Waypoint shows how a strategy did from every possible start
+        month, so you see the whole range instead of one lucky or unlucky case.</p>
+      <ul class="check"><li>For each start: the annual return, the deepest fall below what you put in, and the longest stretch underwater</li><li>Worst, median and best, plus the share of start months that lost money</li></ul></div>
+    <div class="imgbox"><img src="assets/app_startdates.webp" alt="Start-date test showing a strategy's annual return, deepest fall and time underwater for every possible start month" loading="lazy"></div>
   </div>
   <div class="grid">
     <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M4 15l5-5 4 4 7-7"/></svg></div><h3>Any mix you can imagine</h3><p>Any Yahoo Finance ticker, leveraged versions, cash and gold, rebalanced yearly to daily. Describe it in plain English and Waypoint builds it.</p></div>
