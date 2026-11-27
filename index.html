@@ -214,7 +214,7 @@ footer a{color:var(--muted)}
 </div></nav>
 
 <header class="hero"><div class="wrap">
-  <div class="pill"><b>●</b> New: Today's buy and AI news · Free for Windows 10 &amp; 11</div>
+  <div class="pill"><b>●</b> New in 1.8: buy the dips with future money · Free for Windows 10 &amp; 11</div>
   <h1>Are you actually on track? <span class="grad">Find out in minutes.</span></h1>
   <p class="lead">Waypoint tracks what you really own, projects where it's heading, and lets you test any change before
     you make it: a bigger monthly deposit, a new fund, a different mix, or a whole strategy back to 1985.</p>
@@ -289,6 +289,25 @@ footer a{color:var(--muted)}
     <div class="card reveal"><h3>Every buy rebalances</h3><p>New money goes to what's furthest below your mix instead of an even split, so you stay on target without selling.</p></div>
     <div class="card reveal"><h3>A/B and Shock aware <span class="tag p">Pro</span></h3><p>Recession signal on? Buys build your Type B. Shock filter on? Part goes to your safe holding, with a short note so it never feels random.</p></div>
     <div class="card reveal"><h3>Streaks, milestones, tips</h3><p>“I bought it” updates your holdings. Dividends go into the next buy, and dip days can bring a week of deposits forward.</p></div>
+    <div class="card reveal"><h3>Buy the dips with future money <span class="tag">New</span></h3><p>When a holding falls by your chosen % in a day, put several days of <i>its</i> share in at once and skip it after. Same total, more of it on the dips. Backtest it first, then follow it daily.</p></div>
+    <div class="card reveal"><h3>Missed a day? <span class="tag">New</span></h3><p>The last 10 days of signals are saved with their exact shares and prices. Confirm one later and it's added at that day's prices, never counted twice.</p></div>
+    <div class="card reveal"><h3>Daily buy signals on your phone <span class="tag p">Pro</span></h3><p>Two-minute setup from My Dashboard with the free ntfy app. Buys, dips, big drops and the recession signal pop up with the full list.</p></div>
+  </div>
+  <div class="row">
+    <div class="txt reveal"><div class="eyebrow">New · Buy the dips</div><h3>Prove it on 40 years, then let Waypoint call it</h3>
+      <p>Pick a drop (say 2%) and how many days of money to use (say 2). In backtests, every holding that falls that much
+        gets two days of its share that day and none the next, so you can see if it would really have paid off for your
+        portfolio. Turn it on and Today's buy follows the same rule, with an alert the moment a holding hits it, not hours
+        later.</p>
+      <ul class="check"><li>Adjustable drop % and days of money</li><li>Per holding: only the one that dipped gets more</li><li>Same total invested, timing moved into the dips</li></ul></div>
+    <div class="live reveal buy" id="dipcard"><h4>Today's buy <span class="tag">Dip</span></h4>
+      <div class="amt">$110.00 <span class="muted" style="font-size:.95rem;font-weight:500">2 buys due</span></div>
+      <table><tr class="on"><td><b style="color:var(--a)">Buy</b></td><td><b>0.30</b> AAPL</td><td style="text-align:right;color:var(--muted)">≈ $60.00</td></tr>
+        <tr class="on"><td><b style="color:var(--a)">Buy</b></td><td><b>0.30</b> AMD</td><td style="text-align:right;color:var(--muted)">≈ $30.00</td></tr>
+        <tr class="on"><td><b style="color:var(--a)">Buy</b></td><td><b>0.13</b> MPC</td><td style="text-align:right;color:var(--muted)">≈ $20.00</td></tr></table>
+      <div class="why on">Why this looks different: AMD is down 3.1% today, so this includes 2 buys' worth of AMD (your dip rule:
+        2%+). Its share is skipped next time, so you invest the same in total.</div>
+      <p class="fine" style="text-align:left">Example.</p></div>
   </div>
 </div></section>
 
@@ -418,6 +437,20 @@ footer a{color:var(--muted)}
       <div class="live"><h4>Calendar <span class="muted" style="font-size:.8rem">every day, holidays marked</span></h4><div class="calmini" id="calmini"></div></div></div>
   </div>
   <div class="row rev">
+    <div class="txt reveal"><div class="eyebrow">New · Ideas, tested for you</div><h3>Diversify with proof, not guesses</h3>
+      <p>Leaning hard on one area? Waypoint finds funds and large, steady companies that cover what you're missing, then
+        quietly backtests each one with your holdings in the background, and with Pro projects both 20 years ahead.
+        You see the verdict, not a sales pitch: better, a trade-off, or not worth it.</p>
+      <ul class="check"><li>Funds need $1B+ in assets, low fees and 5+ years of history</li><li>Companies need a $10B+ market cap, real trading volume and calm swings</li><li>Tiny, thin or wild stocks are never suggested, however well they did</li></ul></div>
+    <div class="live reveal"><h4>Tested for you: 15% in XLV <span class="muted" style="font-size:.8rem">$49B fund</span></h4>
+      <p style="color:var(--amber);font-weight:700;margin-bottom:8px">A trade-off: worst drop 5 points smaller, for 3.6% a year less growth.</p>
+      <table><tr><th></th><th>As it is</th><th>With 15% XLV</th></tr>
+        <tr><td>Growth per year</td><td class="good">40.1%</td><td>36.4%</td></tr>
+        <tr><td>Worst drop</td><td>−70%</td><td class="good">−65%</td></tr>
+        <tr><td>Sharpe</td><td>0.88</td><td>0.88</td></tr></table>
+      <p class="fine" style="text-align:left">Example from a 3x Nasdaq portfolio. Pro adds a 20-year projection of both. A test, not advice.</p></div>
+  </div>
+  <div class="row rev">
     <div class="txt"><div class="eyebrow">Show it off</div><h3>Share a snapshot in one click</h3>
       <p>Turn any backtest, or your past year against the S&amp;P 500, into a clean image for a group chat or social post.
         Dashboard snapshots show percentages only, never your dollar amounts, and your referral code earns you free Pro
@@ -473,7 +506,7 @@ footer a{color:var(--muted)}
       <a class="btn dl" href="https://github.com/Eluder01/Ballast-releases/releases/latest">Download free</a></div>
     <div class="card plan hl"><span class="tag p">Pro · 7 days free</span><h3 style="margin-top:12px">Waypoint Pro</h3>
       <div class="price">$10 <small>a month after a 7-day free trial · cancel any time</small></div>
-      <ul class="check"><li>Forecasts and the goal planner</li><li>Daily and weekly buy lists, dip boost, A/B and Shock aware</li><li>AI news scans every 1 to 4 hours, phone alerts</li><li>The A/B strategy: Type B portfolios, switch alerts and exact trades</li><li>Backtest any portfolio or strategy, full history</li><li>Recession dashboard, optimizers and AI that builds portfolios</li></ul>
+      <ul class="check"><li>Forecasts and the goal planner</li><li>Daily buy signals on your phone, dip buying, A/B and Shock aware</li><li>AI news scans every 1 to 4 hours, phone alerts</li><li>The A/B strategy: Type B portfolios, switch alerts and exact trades</li><li>Backtest any portfolio or strategy, full history</li><li>Recession dashboard, optimizers and AI that builds portfolios</li></ul>
       <a class="btn pro dl" href="https://github.com/Eluder01/Ballast-releases/releases/latest">Download and start your free trial</a>
       <p class="fine">Start the trial from Account in the app. Secure checkout by Stripe; Waypoint never sees your card.</p></div>
   </div>
@@ -488,6 +521,8 @@ footer a{color:var(--muted)}
     <tr><td>Forecasts and the goal planner</td><td class="no">—</td><td class="yes">✓</td></tr>
     <tr><td>Today's buy: exact shares, every buy rebalances</td><td>Monthly</td><td class="yes">Daily, weekly, monthly</td></tr>
     <tr><td>News about your holdings</td><td>Headlines + 2 AI scans a day</td><td class="yes">Every 1–4 hours, phone alerts</td></tr>
+    <tr><td>Buy the dips with future money</td><td>In backtests</td><td class="yes">Backtests + Today's buy, instant alerts</td></tr>
+    <tr><td>Diversification ideas tested in the background</td><td>Backtests</td><td class="yes">Backtests + 20-year projections</td></tr>
     <tr><td>AI assistant</td><td>Answers questions</td><td class="yes">Builds portfolios too</td></tr>
   </table>
   <p class="center" style="color:var(--muted);margin-top:22px">Refer a friend who buys Pro and get a month of Pro free, up to 4 months each from your 15th buyer.</p>
