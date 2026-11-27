@@ -14,7 +14,8 @@ table{border-collapse:collapse;width:100%;margin:16px 0;font-size:.95rem} td,th{
 th{background:rgba(30,41,59,.7)} code{background:rgba(30,41,59,.8);padding:2px 6px;border-radius:5px;font-size:.9em}
 </style></head><body><nav><div><a href="index.html"><img src="assets/mark.png" alt="">Waypoint</a></div></nav>
 <main><div class="markdown-heading"><h1 class="heading-element">Waypoint Privacy Policy</h1><a id="user-content-waypoint-privacy-policy" class="anchor" aria-label="Permalink: Waypoint Privacy Policy" href="#waypoint-privacy-policy"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
-<p><strong>Effective date: November 26, 2026</strong> (updated for Waypoint 1.6; Waypoint was called Ballast before)</p>
+<p><strong>Effective date: November 26, 2026</strong> (updated for Waypoint 1.7 and Waypoint Pro subscriptions; Waypoint was called
+Ballast before)</p>
 <p>Waypoint is a portfolio tracker and backtesting app for Windows that runs on your own computer. This policy explains
 what information is collected when you use Waypoint, why, who handles it, and the choices you have. "We", "us" and
 "the developer" mean the independent developer of Waypoint. "You" means the person using Waypoint.</p>
@@ -79,6 +80,12 @@ which keeps its original name so nothing is lost when you update) and are <stron
 <td>To unlock the features you're entitled to</td>
 </tr>
 <tr>
+<td>
+<strong>Subscription details, if you subscribe to Pro:</strong> the subscription ID from our payment provider, its status (free trial, active, past due, cancelled, ended), the trial end date and the renewal or end date, whether you've had a free trial (also noted for the PC's device ID, so each person gets one trial) and whether a payment has been made</td>
+<td>To switch Pro on and off, offer the free trial once, remind you before a trial ends, and give referral rewards. <strong>We never receive or store your card or bank details</strong>
+</td>
+</tr>
+<tr>
 <td>Referrals: the username that referred you (if you enter one), how many buyers you've referred and the free months earned</td>
 <td>To give referral rewards</td>
 </tr>
@@ -104,8 +111,8 @@ which keeps its original name so nothing is lost when you update) and are <stron
 </table>
 <p>Each time Waypoint checks your account (about every 6 hours while you're online), it sends your account token, the
 device ID and the app version, so your plan and device lock can be confirmed.</p>
-<p>We don't collect your address, phone number, payment card details, holdings, portfolio contents, trading accounts
-or browsing history. Waypoint never asks for your brokerage login.</p>
+<p>We don't collect your phone number, payment card details, holdings, portfolio contents, trading accounts or browsing
+history. Waypoint never asks for your brokerage login.</p>
 <div class="markdown-heading"><h2 class="heading-element">3. Who handles your information (service providers)</h2><a id="user-content-3-who-handles-your-information-service-providers" class="anchor" aria-label="Permalink: 3. Who handles your information (service providers)" href="#3-who-handles-your-information-service-providers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>We use a small number of services to run Waypoint. They process information on our behalf and under their own
 privacy terms:</p>
@@ -126,12 +133,22 @@ tickers in your holdings.</li>
 <strong>Federal Reserve Bank of St. Louis (FRED):</strong> the economic indicators on the Recession risk page are downloaded
 directly from your computer. FRED sees your IP address and which public indicators are requested, nothing about you.</li>
 <li>
+<strong>ntfy (optional, Pro):</strong> if you turn on phone notifications, Waypoint sends your alerts (for example "Today's
+buy: 2 VOO, 1 SCHD") to the free ntfy service under a private random topic, and the ntfy app on your phone shows
+them. They never include your balance or account details. Anyone who knows your topic can read them, so keep it
+private; turn this off in Settings at any time.</li>
+<li>
 <strong>Ollama:</strong> if you set up Waypoint Agent, your computer downloads the free Ollama engine and the AI model from
 Ollama's servers once. After that the assistant runs offline on your PC.</li>
 <li>
-<strong>Payment provider (when paid plans launch):</strong> payments will be handled by a third-party provider such as Lemon
-Squeezy or Stripe. We will never receive or store your full card details. This policy will be updated to name the
-provider before paid plans are offered.</li>
+<strong>Stripe and Link (payments):</strong> Waypoint Pro is sold through <strong>Stripe Managed Payments</strong>, with Stripe (shown to you
+as <strong>Link</strong>) acting as the <strong>merchant of record</strong>. When you start a trial or subscribe, you enter your email, payment
+details and billing address (country and, where needed, postal code, for sales tax and VAT) on Stripe's secure
+checkout. Stripe processes the payment, charges any tax, sends your receipts, handles payment support and disputes,
+and lets you change your card or cancel (on link.com or through the billing page Waypoint opens), under Stripe's and
+Link's own privacy policies. Stripe shares with us only what we need to run your subscription (listed in section 2),
+the email used at checkout and a customer ID. Waypoint's checkout carries your account ID so the subscription is
+matched to your account.</li>
 </ul>
 <p>Google, GitHub and these providers may log technical information such as IP addresses when your computer
 connects to them. We don't use these logs to track you.</p>
@@ -141,17 +158,29 @@ connects to them. We don't use these logs to track you.</p>
 <li>
 <strong>Waypoint Agent (default):</strong> runs entirely on your PC through Ollama. Your messages never leave your computer.</li>
 <li>
-<strong>Gemini, ChatGPT or Claude (optional):</strong> if you connect one with <strong>your own</strong> API key, your messages, a summary
-of your latest backtest and your list of portfolios are sent to that company (<strong>Google</strong>, <strong>OpenAI</strong> or
-<strong>Anthropic</strong>) under its API terms, and billed to your own account with them. Some free tiers let the provider use
-your content to improve its products. Your holdings and account details are not sent. Don't type private
-information into the chat.</li>
+<strong>Grok, Gemini, ChatGPT, Claude or Perplexity (optional):</strong> if you connect one with <strong>your own</strong> API key, your
+messages, a summary of your latest backtest and your list of portfolios are sent to that company (<strong>xAI</strong>,
+<strong>Google</strong>, <strong>OpenAI</strong>, <strong>Anthropic</strong> or <strong>Perplexity</strong>) under its API terms, and billed to your own account with
+them.</li>
+<li>
+<strong>News scans (optional):</strong> with one of those assistants connected, Waypoint asks it on a schedule (for example every
+two hours while the market is open) to search the news about <strong>the ticker symbols you hold</strong>. Only the symbols are
+sent, never share counts, amounts or account details. You can turn news scans off in Settings.</li>
+<li>
+<strong>Updating your holdings in your own words (optional):</strong> when you ask an assistant to update My Dashboard (for example
+"I still have my Apple, but 20% is now AMD"), Waypoint sends it your message and your current holdings in that account:
+ticker symbols, share counts and their dollar values, so it can work out the change. With Waypoint Agent this stays on
+your PC. Nothing else from your account is sent, and nothing is saved until you confirm.</li>
 </ul>
+<p>Some free tiers let the provider use your content to improve its products. Apart from the cases above, your holdings and
+account details are not sent. Don't type private information into the chat.</p>
 <div class="markdown-heading"><h2 class="heading-element">5. How we use your information</h2><a id="user-content-5-how-we-use-your-information" class="anchor" aria-label="Permalink: 5. How we use your information" href="#5-how-we-use-your-information"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>We use account information and error reports only to:</p>
 <ul>
 <li>create and secure your account, verify your email and prevent fake or automated accounts</li>
 <li>provide the features of your plan, give referral rewards and enforce the one-PC rule for paid plans</li>
+<li>run your subscription: start the free trial once per person, switch Pro on and off, and remind you before a trial
+turns into a paid plan</li>
 <li>find and fix problems in Waypoint</li>
 <li>send service messages, such as codes, password resets and important changes to Waypoint or these policies</li>
 <li>respond to feedback and support requests, and improve Waypoint</li>
@@ -172,6 +201,10 @@ our account service and sign-in provider within 30 days.</li>
 <strong>Feedback:</strong> kept until it is no longer useful or you ask us to delete it.</li>
 <li>
 <strong>Event logs:</strong> kept for up to 24 months for security, then deleted.</li>
+<li>
+<strong>Subscription records:</strong> kept while your account exists. Our payment provider keeps its own transaction and tax
+records for as long as the law requires (often several years), even after you cancel or delete your account. A note
+that a PC has used a free trial is kept so trials can't be repeated.</li>
 <li>Some information may remain briefly in backups held by our providers, and we may keep information longer
 where the law requires it.</li>
 </ul>
